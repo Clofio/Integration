@@ -1,0 +1,43 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ResourceExplorerAccess",
+            "Effect": "Allow",
+            "Action": [
+                "resource-explorer-2:ListViews",
+                "resource-explorer-2:CreateView",
+                "resource-explorer-2:Search"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "S3BucketAccess",
+            "Effect": "Allow",
+            "Action": "s3:GetObject",
+            "Resource": [
+                "arn:aws:s3:::<cur-s3-bucket-name>",
+                "arn:aws:s3:::<cur-s3-bucket-name>/*"
+            ]
+        },
+        {
+			"Sid": "ServiceReadOnlyAccess",
+			"Effect": "Allow",
+			"Action": [
+                "cloudwatch:Get*",
+                "cloudwatch:List*",
+				"ec2:Describe*",
+				"elasticloadbalancing:Describe*",
+                "rds:Describe*",
+			    "route53:List*"
+			],
+			"Resource": "*"
+		},
+        {
+			"Sid": "ServiceAutomationAccess",
+			"Effect": "Allow",
+			"Action": [],
+			"Resource": "*"
+		}
+    ]
+}
