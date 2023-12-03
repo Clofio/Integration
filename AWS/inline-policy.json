@@ -33,12 +33,6 @@
                 "route53:List*"
             ],
             "Resource": "*"
-        },
-        {
-            "Sid": "ServiceAutomationAccess",
-            "Effect": "Allow",
-            "Action": [],
-            "Resource": "*"
         }
     ]
 }
