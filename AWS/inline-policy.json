@@ -5,6 +5,7 @@
             "Sid": "ResourceExplorerAccess",
             "Effect": "Allow",
             "Action": [
+                "resource-explorer-2:ListIndexes",
                 "resource-explorer-2:ListViews",
                 "resource-explorer-2:CreateView",
                 "resource-explorer-2:Search"
