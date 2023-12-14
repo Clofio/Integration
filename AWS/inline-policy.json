@@ -25,11 +25,14 @@
             "Sid": "ServiceReadOnlyAccess",
             "Effect": "Allow",
             "Action": [
+                "cloudwatch:Describe*",
                 "cloudwatch:Get*",
                 "cloudwatch:List*",
                 "ec2:Describe*",
+                "ec2:Get*",
                 "elasticloadbalancing:Describe*",
                 "rds:Describe*",
+                "rds:List*",
                 "route53:List*"
             ],
             "Resource": "*"
