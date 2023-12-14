@@ -1,4 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
+
 Resources:
   ClofioAgent:
     Type: 'AWS::IAM::User'
@@ -24,16 +25,20 @@ Resources:
                   - 'arn:aws:s3:::clofio-cur-bucket/*'
               - Effect: Allow
                 Action:
+                  - 'cloudwatch:Describe*'
                   - 'cloudwatch:Get*'
                   - 'cloudwatch:List*'
                   - 'ec2:Describe*'
+                  - 'ec2:Get*'
                   - 'elasticloadbalancing:Describe*'
                   - 'rds:Describe*'
+                  - 'rds:List*'
                   - 'route53:List*'
                 Resource: '*'
       Tags:
         - Key: CreatedBy
           Value: clofio-cloudformation-template
+
   ClofioCurS3Bucket:
     Type: 'AWS::S3::Bucket'
     DeletionPolicy: Delete
@@ -42,6 +47,7 @@ Resources:
       Tags:
         - Key: CreatedBy
           Value: clofio-cloudformation-template
+
   ClofioCurS3BucketPolicy:
     Type: 'AWS::S3::BucketPolicy'
     Properties:
@@ -83,6 +89,7 @@ Resources:
                     - !Ref "AWS::AccountId"
                     - 'definition/*'
                 'aws:SourceAccount': !Ref "AWS::AccountId"
+
   ClofioCurReportDefinition:
     Type: 'AWS::CUR::ReportDefinition'
     DependsOn: ClofioCurS3BucketPolicy

@@ -1,0 +1,50 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Parameters:
+  ManagementAccountId:
+    Type: String
+    Description: The ID of AWS Management Account.
+    AllowedPattern: "[0-9]{12}"
+    ConstraintDescription: Must be a valid AWS account ID
+
+Resources:
+  CrossAccountRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: ClofioCrossAccountRole
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS:
+              - Fn::Sub: arn:aws:iam::${ManagementAccountId}:user/clofio-agent
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: clofio-agent-permission
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'resource-explorer-2:ListIndexes'
+                  - 'resource-explorer-2:ListViews'
+                  - 'resource-explorer-2:CreateView'
+                  - 'resource-explorer-2:Search'
+                Resource: '*'
+              - Effect: Allow
+                Action:
+                  - 'cloudwatch:Describe*'
+                  - 'cloudwatch:Get*'
+                  - 'cloudwatch:List*'
+                  - 'ec2:Describe*'
+                  - 'ec2:Get*'
+                  - 'elasticloadbalancing:Describe*'
+                  - 'rds:Describe*'
+                  - 'rds:List*'
+                  - 'route53:List*'
+                Resource: '*'
+      Tags:
+        - Key: CreatedBy
+          Value: clofio-cloudformation-template
+  
