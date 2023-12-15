@@ -31,6 +31,8 @@ Resources:
                   - 'ec2:Describe*'
                   - 'ec2:Get*'
                   - 'elasticloadbalancing:Describe*'
+                  - 'organizations:Describe*'
+                  - 'organizations:List*'
                   - 'rds:Describe*'
                   - 'rds:List*'
                   - 'route53:List*'
