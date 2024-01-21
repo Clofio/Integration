@@ -1,5 +1,13 @@
 AWSTemplateFormatVersion: 2010-09-09
 
+Parameters:
+  S3BucketName:
+    Type: String
+    Description: An Unique S3 Bucket name to store Cost and Usage Report.
+    AllowedPattern: "^[a-z0-9][a-z0-9//.//-]*[a-z0-9]$"
+    ConstraintDescription: Must be a valid S3 Bucket name
+    Default: orgname-clofio-cur-bucket
+
 Resources:
   ClofioAgent:
     Type: 'AWS::IAM::User'
@@ -21,8 +29,8 @@ Resources:
                 Action:
                   - 's3:GetObject'
                 Resource:
-                  - 'arn:aws:s3:::clofio-cur-bucket'
-                  - 'arn:aws:s3:::clofio-cur-bucket/*'
+                  - !Sub 'arn:aws:s3:::${S3BucketName}'
+                  - !Sub 'arn:aws:s3:::${S3BucketName}/*'
               - Effect: Allow
                 Action:
                   - 'cloudwatch:Describe*'
@@ -58,7 +66,7 @@ Resources:
     Type: 'AWS::S3::Bucket'
     DeletionPolicy: Delete
     Properties:
-      BucketName: clofio-cur-bucket
+      BucketName: !Sub '${S3BucketName}'
       Tags:
         - Key: CreatedBy
           Value: clofio-cloudformation-template

@@ -1,0 +1,15 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Resources:
+  UserPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: ClofioCrossAccountPolicy
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action: sts:AssumeRole
+            Resource: arn:aws:iam::*:role/ClofioCrossAccountRole
+      Users:
+        - clofio-agent
